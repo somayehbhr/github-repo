@@ -1,9 +1,9 @@
-import { useRepositoryDetail } from "@/hooks/useRepositoryDetail";
+import { useRepositoryDetail } from "@/app/repository/hooks/useRepositoryDetail";
 import { GitHubRepository } from "@/types/GithubRepository";
 import { formatNotationNumber } from "@/utils/formatNotationNumber";
 import Link from "next/link";
 import Image from "next/image";
-export const RepositoryDetail = ({ repo }: { repo: GitHubRepository }) => {
+export const RepositoryContainer = ({ repo }: { repo: GitHubRepository }) => {
   const { contributors, isLoadingContributors, languages, isLoadingLanguages } =
     useRepositoryDetail({ repo });
 
