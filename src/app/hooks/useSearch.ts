@@ -8,7 +8,7 @@ export const useSearch = () => {
     isPending: searchPending,
   } = useMutation({
     mutationFn: async (keyword: string) => {
-      return await search("repositories", { query: keyword });
+      return await search("repositories", { q: keyword });
     },
   });
 
