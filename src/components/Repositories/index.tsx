@@ -14,6 +14,7 @@ interface Item {
   description: string;
   owner: Owner;
   updated_at: string;
+  full_name: string;
 }
 
 export interface RepositoriesProps {
@@ -35,7 +36,8 @@ export const Repositories: FC<RepositoriesProps> = ({ data }) => {
                   pathname: "/repository",
                   query: {
                     info: JSON.stringify(
-                      data.items.filter((repo) => repo.id === item.id),
+                      data?.items?.find((repo) => repo.id === item.id)
+                        ?.full_name,
                     ),
                   },
                 }}

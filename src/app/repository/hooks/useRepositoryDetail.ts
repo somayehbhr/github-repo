@@ -1,19 +1,32 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { GitHubRepository } from "@/types/GithubRepository";
+import { getRepoDetail } from "@/services/search";
 
-export const useRepositoryDetail = ({ repo }: { repo: GitHubRepository }) => {
+export const useRepositoryDetail = ({ repo }: { repo: string }) => {
+  const { data: repoDetail, isLoading: isLoadingRepoDetail } = useQuery({
+    queryFn: () => getRepoDetail(repo),
+    queryKey: [repo],
+    enabled: !!repo,
+  });
+
   const { data: contributors, isLoading: isLoadingContributors } = useQuery({
-    queryFn: () => axios.get(repo.contributors_url),
-    queryKey: [repo.contributors_url],
-    enabled: !!repo.contributors_url,
+    queryFn: () => (repoDetail ? axios.get(repoDetail.contributors_url) : null),
+    queryKey: [repoDetail?.contributors_url],
+    enabled: !!repoDetail,
   });
 
   const { data: languages, isLoading: isLoadingLanguages } = useQuery({
-    queryFn: () => axios.get(repo.languages_url),
-    queryKey: [repo.languages_url],
-    enabled: !!repo.languages_url,
+    queryFn: () => (repoDetail ? axios.get(repoDetail.languages_url) : null),
+    queryKey: [repoDetail?.languages_url],
+    enabled: !!repoDetail,
   });
 
-  return { contributors, isLoadingContributors, languages, isLoadingLanguages };
+  return {
+    repoDetail,
+    isLoadingRepoDetail,
+    contributors,
+    isLoadingContributors,
+    languages,
+    isLoadingLanguages,
+  };
 };

@@ -6,3 +6,7 @@ export const search = async (endpoint: any, params: any) => {
   });
   return data;
 };
+export const getRepoDetail = async (full_name: any) => {
+  const { data }: { data: any } = await request.get(`repos/${full_name}`);
+  return data;
+};
