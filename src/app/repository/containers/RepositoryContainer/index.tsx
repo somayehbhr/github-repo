@@ -69,7 +69,6 @@ export const RepositoryContainer = ({ repo }: { repo: string }) => {
                             <span className="self-center hidden sm:inline-block">
                               {item?.login}
                             </span>
-
                             <Image
                               height={40}
                               width={40}
